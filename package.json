@@ -1,0 +1,15 @@
+{
+  "name": "studentidgenerator",
+  "version": "1.0.0",
+  "description": "Generate ID Card of University .",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ichikyuu",
+  "license": "ISC",
+  "dependencies": {
+    "jimp": "^0.16.2",
+    "readline-sync": "^1.4.10"
+  }
+}

@@ -113,6 +113,53 @@ class TimpaText {
 
     }
 
+    async UnpadTemplate(name, image, template) {
+
+        try {
+
+            let nama = name;
+            let picture = await Jimp.read(this.dirFilename + image);
+    
+            Jimp.read(this.dirTemplate + template, (err, image) => {
+    
+                // Here is the code to add the image to the template
+                picture.resize(160, 200);
+                image.composite(picture, 591, 240);
+    
+                if (err) throw err;
+    
+                let textImage = new Jimp(1000,1000, 0x0, (err, textImage) => {  
+                    //((0x0 = 0 = rgba(0, 0, 0, 0)) = transparent)
+                    if (err) throw err;
+                })
+    
+                // Add details to the template
+                Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+    
+                    textImage.print(font, 30, 200, `${nama}`);
+                    image.composite(textImage, 0, 0);
+    
+                    textImage.print(font, 30, 250, `${helpers.randomId()}`);
+                    image.composite(textImage, 0, 0);
+    
+                    textImage.print(font, 30, 300, `${helpers.randomBirthday()}`);
+                    image.composite(textImage, 0, 0);
+    
+                    textImage.print(font, 30, 350, `${helpers.randomDepartement()}`);
+                    image.composite(textImage, 0, 0);
+    
+                    image.write(`./results/${nama.replace(/ /g, '_')}.png`);
+    
+                })
+    
+            });
+            
+        } catch (error) {
+            throw error;
+        }
+
+    }
+
 }
 
 module.exports = TimpaText;

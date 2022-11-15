@@ -9,6 +9,7 @@
   "author": "Ichikyuu",
   "license": "ISC",
   "dependencies": {
+    "inquirer": "^6.5.0",
     "jimp": "^0.16.2",
     "readline-sync": "^1.4.10"
   }

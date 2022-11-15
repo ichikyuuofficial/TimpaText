@@ -5,7 +5,7 @@ So , it just put some text and picture on Templates pictures . <br>
 
 ## How to use ?
 
-Required : <br><br>
+Required : <br>
 1. [NodeJS](https://nodejs.org/en/) <br>
 2. [Git](https://git-scm.com/)
 

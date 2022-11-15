@@ -47,6 +47,11 @@ const bot = new TimpaText();
             await bot.UMSTemplate(answers_name.name, answers_filename.filename, answers_template.template);
             console.log({ success: true, path: `./results/${answers_name.name.replace(/ /g, '_')}.png` });
             break;
+        
+        case 'UnpadTemplate.png':
+            await bot.UnpadTemplate(answers_name.name, answers_filename.filename, answers_template.template);
+            console.log({ success: true, path: `./results/${answers_name.name.replace(/ /g, '_')}.png` });
+            break;
 
         default:
             break;

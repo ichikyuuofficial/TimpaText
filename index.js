@@ -38,19 +38,15 @@ const bot = new TimpaText();
     const answers_name = await inquirer.prompt(questions_name);
 
     switch (answers_template.template) {
-        case 'IndianaTemplate.png':
-            await bot.IndianaTemplate(answers_name.name, answers_filename.filename, answers_template.template);
-            console.log({ success: true, path: `./results/${answers_name.name.replace(/ /g, '_')}.png` });
+        
+        case 'BinusTemplate.png':
+            await bot.BinusTemplate(answers_name.name, answers_filename.filename, answers_template.template);
+            console.log({ success: true, path: bot.dirResult + answers_name.name.replace(/ /g, '_') + '.png' });
             break;
 
-        case 'UMSTemplate.png':
-            await bot.UMSTemplate(answers_name.name, answers_filename.filename, answers_template.template);
-            console.log({ success: true, path: `./results/${answers_name.name.replace(/ /g, '_')}.png` });
-            break;
-        
-        case 'UnpadTemplate.png':
-            await bot.UnpadTemplate(answers_name.name, answers_filename.filename, answers_template.template);
-            console.log({ success: true, path: `./results/${answers_name.name.replace(/ /g, '_')}.png` });
+        case 'UnivTexasDallasTemplate.png':
+            await bot.UnivTexasDallasTemplate(answers_name.name, answers_filename.filename, answers_template.template);
+            console.log({ success: true, path: bot.dirResult + answers_name.name.replace(/ /g, '_') + '.png' });
             break;
 
         default:

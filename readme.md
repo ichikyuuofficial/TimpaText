@@ -5,4 +5,4 @@ So , it just put some text and picture on Templates pictures . <br>
 
 ## Note
 
-Before use this tools , make sure you save your image into `images/picture` folders .
+Before use this tools , make sure you save your image into `assets/Image` folders .

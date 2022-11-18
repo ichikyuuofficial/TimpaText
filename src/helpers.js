@@ -1,4 +1,3 @@
-// random number with pattern xx-xxx-xxxxx
 function randomId() {
     let pattern = "xx - xxx - xxxxx";
     let random = pattern.replace(/x/g, function (c) {
@@ -73,8 +72,27 @@ function randomDepartement() {
 
 }
 
+const randomAddress = async () =>  {
+
+    const req = await fetch('https://raw.githubusercontent.com/EthanRBrown/rrad/master/addresses-us-all.json', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    
+    const res = await req.json();
+
+    let data = res.addresses[Math.floor(Math.random() * res.addresses.length)];
+    let address = data.address1 + ', ' + data.city + ', ' + data.state + ', ' + data.postalCode;
+
+    return address;
+
+}
+
 module.exports = {
     randomId,
     randomBirthday,
-    randomDepartement
+    randomDepartement,
+    randomAddress
 }

@@ -68,9 +68,9 @@ function Head() {
 
 Note :
 
-1. Save your image inside "./image/pictures" folder ( .png or .jpg or .jpeg only )
+1. Save your image inside "./assets/Image" folder ( .png or .jpg or .jpeg only )
 2. Input name manually
 3. ID , DOB , and Department will be generated automatically
-4. Result will be saved inside "./results" folder
+4. Result will be saved inside "./Results" folder
     `)
 }

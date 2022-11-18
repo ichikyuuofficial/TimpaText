@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 function randomId() {
     let pattern = "xx - xxx - xxxxx";
     let random = pattern.replace(/x/g, function (c) {

@@ -8,154 +8,91 @@ class TimpaText {
 
     constructor() {
 
-        this.dirFilename = './image/pictures/';
-        this.dirTemplate = './image/template/';
-        this.dirResult = './results/';
+        /* Font */
+        this.Bahnschrift_Indigo_20 = './assets/Font/Bahnschrift_Indigo_20.ttf/fV7UicCke24kZs1VMpL96msB.TTF.fnt';
+        this.Bahnschrift_Indigo_24 = './assets/Font/Bahnschrift_Indigo_24.ttf/dGTTLHQfQx2kXxbjefUftQ7C.TTF.fnt';
+        this.Bahnschrift_White_24 = './assets/Font/Bahnschrift_White_24.ttf/tFfOBCrKN7xW3exj60hR7QaL.TTF.fnt';
+
+        /* Path */
+        this.dirFilename = './assets/Image/';
+        this.dirTemplate = './assets/Template/';
+        this.dirResult = './Results/';
 
         if (!fs.existsSync(this.dirResult)) fs.mkdirSync(this.dirResult);
 
     }
 
-    async IndianaTemplate(name, image, template) {
+    async BinusTemplate(name, image, templates) {
 
         try {
 
-            let nama = name;
             let picture = await Jimp.read(this.dirFilename + image);
+            picture.resize(137, 191);
     
-            Jimp.read(this.dirTemplate + template, (err, image) => {
+            let template = await Jimp.read(this.dirTemplate + templates);
+            template.composite(picture, 30, 240);
     
-                // Here is the code to add the image to the template
-                picture.resize(230, 280);
-                image.composite(picture, 60, 280);
-
-                if (err) throw err;
-
-                let textImage = new Jimp(1000,1000, 0x0, (err, textImage) => {  
-                    //((0x0 = 0 = rgba(0, 0, 0, 0)) = transparent)
-                    if (err) throw err;
-                })
-
-                // Add details to the template
-                Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
-
-                    // textImage.color([{apply:'xor', params:['#46146b']}]);
-
-                    textImage.print(font, 340, 300, `Name              :    ${nama}`);
-                    image.composite(textImage, 0, 0);
-
-                    textImage.print(font, 340, 360, `ID                    :    ${helpers.randomId()}`);
-                    image.composite(textImage, 0, 0);
-
-                    textImage.print(font, 340, 420, `DOB                :    ${helpers.randomBirthday()}`);
-                    image.composite(textImage, 0, 0);
-
-                    textImage.print(font, 340, 480, `Department     :    ${helpers.randomDepartement()}`);
-                    image.composite(textImage, 0, 0);
-
-                    image.write(`./results/${nama.replace(/ /g, '_')}.png`);
-
-                })
+            let fonts = await Jimp.loadFont(this.Bahnschrift_White_24);
     
-            });
+            /* Detail Info */
+            var Nama = name;
+            var Id = helpers.randomId();
+            var Birthday = helpers.randomBirthday();
+            var Departement = helpers.randomDepartement();
+    
+            /* QR CODE */
+            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id}&bgcolor=255-127-39`);
+    
+            template.print(fonts, 230, 200, Nama);
+            template.print(fonts, 230, 250, Id);
+            template.print(fonts, 230, 300, Birthday);
+            template.print(fonts, 230, 350, Departement);
+            template.composite(qr, 620, 200);
+    
+            template.write(this.dirResult + Nama.replace(/ /g, '_') + '.png');
             
         } catch (error) {
             throw error;
+            
         }
 
     }
 
-    async UMSTemplate(name, image, template) {
+    async UnivTexasDallasTemplate(name, image, templates) {
 
         try {
 
-            let nama = name;
             let picture = await Jimp.read(this.dirFilename + image);
+            picture.resize(171, 231);
     
-            Jimp.read(this.dirTemplate + template, (err, image) => {
+            let template = await Jimp.read(this.dirTemplate + templates);
+            template.composite(picture, 30, 170);
     
-                // Here is the code to add the image to the template
-                picture.resize(147, 197);
-                image.composite(picture, 52, 208);
-
-                if (err) throw err;
-
-                let textImage = new Jimp(1000,1000, 0x0, (err, textImage) => {  
-                    //((0x0 = 0 = rgba(0, 0, 0, 0)) = transparent)
-                    if (err) throw err;
-                })
-
-                Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
-
-                    // textImage.color([{apply:'xor', params:['#46146b']}]);
-
-                    textImage.print(font, 220, 220, `${nama}`);
-                    image.composite(textImage, 0, 0);
-
-                    textImage.print(font, 220, 265, `${helpers.randomId()}`);
-                    image.composite(textImage, 0, 0);
-
-                    textImage.print(font, 220, 310, `${helpers.randomBirthday()}`);
-                    image.composite(textImage, 0, 0);
-
-                    textImage.print(font, 220, 355, `${helpers.randomDepartement()}`);
-                    image.composite(textImage, 0, 0);
-
-                    image.write(`./results/${nama.replace(/ /g, '_')}.png`);
-
-                })
+            let fonts = await Jimp.loadFont(this.Bahnschrift_Indigo_24);
     
-            });
+            /* Detail Info */
+            var Nama = name;
+            var Id = helpers.randomId();
+            var Birthday = helpers.randomBirthday();
+            var Departement = helpers.randomDepartement();
+            var Address = await helpers.randomAddress();
+    
+            /* QR CODE */
+            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id}&bgcolor=200-191-231`);
+    
+            template.print(fonts, 225, 170, Nama);
+            template.print(fonts, 225, 220, Id);
+            template.print(fonts, 225, 270, Birthday);
+            template.print(fonts, 225, 320, Departement);
+            template.print(fonts, 225, 370, Address);
+    
+            template.composite(qr, 610, 170);
+    
+            template.write(this.dirResult + Nama.replace(/ /g, '_') + '.png');
             
         } catch (error) {
             throw error;
-        }
-
-    }
-
-    async UnpadTemplate(name, image, template) {
-
-        try {
-
-            let nama = name;
-            let picture = await Jimp.read(this.dirFilename + image);
-    
-            Jimp.read(this.dirTemplate + template, (err, image) => {
-    
-                // Here is the code to add the image to the template
-                picture.resize(160, 200);
-                image.composite(picture, 591, 240);
-    
-                if (err) throw err;
-    
-                let textImage = new Jimp(1000,1000, 0x0, (err, textImage) => {  
-                    //((0x0 = 0 = rgba(0, 0, 0, 0)) = transparent)
-                    if (err) throw err;
-                })
-    
-                // Add details to the template
-                Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
-    
-                    textImage.print(font, 30, 200, `${nama}`);
-                    image.composite(textImage, 0, 0);
-    
-                    textImage.print(font, 30, 250, `${helpers.randomId()}`);
-                    image.composite(textImage, 0, 0);
-    
-                    textImage.print(font, 30, 300, `${helpers.randomBirthday()}`);
-                    image.composite(textImage, 0, 0);
-    
-                    textImage.print(font, 30, 350, `${helpers.randomDepartement()}`);
-                    image.composite(textImage, 0, 0);
-    
-                    image.write(`./results/${nama.replace(/ /g, '_')}.png`);
-    
-                })
-    
-            });
             
-        } catch (error) {
-            throw error;
         }
 
     }

@@ -74,6 +74,7 @@ function randomDepartement() {
 
 }
 
+/* Credit it to https://github.com/EthanRBrown and https://openaddresses.io/ */
 const randomAddress = async () =>  {
 
     const req = await fetch('https://raw.githubusercontent.com/EthanRBrown/rrad/master/addresses-us-all.json', {

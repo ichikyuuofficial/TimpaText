@@ -58,6 +58,41 @@ class TimpaText {
 
     }
 
+    async CiputraTemplate(name, image, templates) {
+
+        try {
+
+            let picture = await Jimp.read(this.dirFilename + image);
+            picture.resize(137, 191);
+        
+            let template = await Jimp.read(this.dirTemplate + templates);
+            template.composite(picture, 600, 240);
+    
+            let fonts = await Jimp.loadFont(this.Bahnschrift_Indigo_24);
+    
+            /* Detail Info */
+            var Nama = name;
+            var Id = helpers.randomId();
+            var Birthday = helpers.randomBirthday();
+            var Departement = helpers.randomDepartement();
+    
+            /* QR CODE */
+            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id}&bgcolor=255-242-0`);
+    
+            template.print(fonts, 30, 200, Nama);
+            template.print(fonts, 30, 250, Id);
+            template.print(fonts, 30, 300, Birthday);
+            template.print(fonts, 30, 350, Departement);
+            template.composite(qr, 410, 200);
+    
+            template.write(this.dirResult + Nama.replace(/ /g, '_') + '.png');
+            
+        } catch (error) {
+            throw error;
+        }
+
+    }
+
     async UnivTexasDallasTemplate(name, image, templates) {
 
         try {

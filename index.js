@@ -44,6 +44,11 @@ const bot = new TimpaText();
             console.log({ success: true, path: bot.dirResult + answers_name.name.replace(/ /g, '_') + '.png' });
             break;
 
+        case 'CiputraTemplate.png':
+            await bot.CiputraTemplate(answers_name.name, answers_filename.filename, answers_template.template);
+            console.log({ success: true, path: bot.dirResult + answers_name.name.replace(/ /g, '_') + '.png' });
+            break;
+
         case 'UnivTexasDallasTemplate.png':
             await bot.UnivTexasDallasTemplate(answers_name.name, answers_filename.filename, answers_template.template);
             console.log({ success: true, path: bot.dirResult + answers_name.name.replace(/ /g, '_') + '.png' });

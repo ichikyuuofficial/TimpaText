@@ -169,6 +169,42 @@ class TimpaText {
 
     }
 
+    async SingaporeManagementUnivTemplate(name, image, templates) {
+
+        try {
+
+            let picture = await Jimp.read(this.dirFilename + image);
+            picture.resize(171, 231);
+        
+            let template = await Jimp.read(this.dirTemplate + templates);
+            template.composite(picture, 30, 170);
+        
+            let fonts = await Jimp.loadFont(this.Bahnschrift_Indigo_24);
+
+            /* Detail Info */
+            var Nama = name;
+            var Id = helpers.randomId();
+            var Birthday = helpers.randomBirthday();
+            var Departement = helpers.randomDepartement();
+    
+            template.print(fonts, 225, 170, Nama);
+            template.print(fonts, 225, 220, Id);
+            template.print(fonts, 225, 270, Birthday);
+            template.print(fonts, 225, 320, Departement);
+    
+            // qr
+            var qr = await Jimp.read(`https://barcode.tec-it.com/barcode.ashx?data=${Id}&code=Code128&translate-esc=true&bgcolor=c3c3c3&imagetype=Png&hidehrt=True`);
+            qr.resize(170, 30);
+            template.composite(qr, 228, 370);
+    
+            template.write(this.dirResult + Nama.replace(/ /g, '_') + '.png');
+            
+        } catch (error) {
+            throw error;
+        }
+
+    }
+
 }
 
 module.exports = TimpaText;

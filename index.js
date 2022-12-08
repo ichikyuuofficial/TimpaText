@@ -69,6 +69,11 @@ const bot = new TimpaText();
             console.log({ success: true, path: bot.dirResult + answers_name.name.replace(/ /g, '_') + '.png' });
             break;
 
+        case 'IndianaTemplate.png':
+            await bot.IndianaTemplate(answers_name.name, answers_filename.filename, answers_template.template);
+            console.log({ success: true, path: bot.dirResult + answers_name.name.replace(/ /g, '_') + '.png' });
+            break;
+
         default:
             break;
 

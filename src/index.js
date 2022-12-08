@@ -41,7 +41,7 @@ class TimpaText {
             var Departement = helpers.randomDepartement();
     
             /* QR CODE */
-            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id}&bgcolor=255-127-39`);
+            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id.substring(Id.length - 5, Id.length)}&bgcolor=255-127-39`);
     
             template.print(fonts, 230, 200, Nama);
             template.print(fonts, 230, 250, Id);
@@ -77,7 +77,7 @@ class TimpaText {
             var Departement = helpers.randomDepartement();
     
             /* QR CODE */
-            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id}&bgcolor=255-242-0`);
+            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id.substring(Id.length - 5, Id.length)}&bgcolor=255-242-0`);
     
             template.print(fonts, 30, 200, Nama);
             template.print(fonts, 30, 250, Id);
@@ -113,7 +113,7 @@ class TimpaText {
             var Address = await helpers.randomAddress();
     
             /* QR CODE */
-            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id}&bgcolor=200-191-231`);
+            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id.substring(Id.length - 5, Id.length)}&bgcolor=200-191-231`);
     
             template.print(fonts, 225, 170, Nama);
             template.print(fonts, 225, 220, Id);
@@ -158,7 +158,7 @@ class TimpaText {
             template.print(fonts, 225, 370, Address);
     
             /* QR CODE */
-            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id}&bgcolor=112-146-190`);
+            var qr = await Jimp.read(`https://api.qrserver.com/v1/create-qr-code/?size=121x121&data=${Id.substring(Id.length - 5, Id.length)}&bgcolor=112-146-190`);
             template.composite(qr, 600, 170);
     
             template.write(this.dirResult + Nama.replace(/ /g, '_') + '.png');
@@ -193,7 +193,7 @@ class TimpaText {
             template.print(fonts, 225, 320, Departement);
     
             // qr
-            var qr = await Jimp.read(`https://barcode.tec-it.com/barcode.ashx?data=${Id}&code=Code128&translate-esc=true&bgcolor=c3c3c3&imagetype=Png&hidehrt=True`);
+            var qr = await Jimp.read(`https://barcode.tec-it.com/barcode.ashx?data=${Id.substring(Id.length - 5, Id.length)}&code=Code128&translate-esc=true&bgcolor=c3c3c3&imagetype=Png&hidehrt=True`);
             qr.resize(170, 30);
             template.composite(qr, 228, 370);
     
@@ -229,9 +229,45 @@ class TimpaText {
             template.print(fonts, 225, 320, Departement);
     
             // qr
-            var qr = await Jimp.read(`https://barcode.tec-it.com/barcode.ashx?data=${Id}&code=Code128&translate-esc=true&bgcolor=c3c3c3&imagetype=Png&hidehrt=True`);
+            var qr = await Jimp.read(`https://barcode.tec-it.com/barcode.ashx?data=${Id.substring(Id.length - 5, Id.length)}&code=Code128&translate-esc=true&bgcolor=c3c3c3&imagetype=Png&hidehrt=True`);
             qr.resize(170, 30);
             template.composite(qr, 228, 370);
+    
+            template.write(this.dirResult + Nama.replace(/ /g, '_') + '.png');
+            
+        } catch (error) {
+            throw error;
+        }
+
+    }
+
+    async IndianaTemplate(name, image, templates) {
+
+        try {
+
+            let picture = await Jimp.read(this.dirFilename + image);
+            picture.resize(141, 211);
+        
+            let template = await Jimp.read(this.dirTemplate + templates);
+            template.composite(picture, 60, 200);
+        
+            let fonts = await Jimp.loadFont(this.Bahnschrift_Indigo_24);
+
+            /* Detail Info */
+            var Nama = name;
+            var Id = helpers.randomId();
+            var Birthday = helpers.randomBirthday();
+            var Departement = helpers.randomDepartement();
+    
+            template.print(fonts, 230, 200, Nama);
+            template.print(fonts, 230, 245, Id);
+            template.print(fonts, 230, 290, Birthday);
+            template.print(fonts, 230, 335, Departement);
+    
+            // qr
+            var qr = await Jimp.read(`https://barcode.tec-it.com/barcode.ashx?data=${Id.substring(Id.length - 5, Id.length)}&code=Code128&translate-esc=true&bgcolor=ffffff&imagetype=Png&hidehrt=True`);
+            qr.resize(145, 30);
+            template.composite(qr, 233, 385);
     
             template.write(this.dirResult + Nama.replace(/ /g, '_') + '.png');
             

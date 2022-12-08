@@ -53,7 +53,7 @@ function randomDepartement() {
         16: 'Chemistry and Biochemistry',
         17: 'English and Modern Languages',
         18: 'Information Systems Analysis',
-        19: 'M.B.A.',
+        19: 'Transportation',
         20: 'Earth and Space Sciences',
     }
 

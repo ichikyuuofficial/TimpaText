@@ -9,37 +9,27 @@ function randomId() {
     return random;
 }
 
-function randomBirthday() {
+function randomBirthday(){
 
-    var day = Math.floor(Math.random() * 30) + 1;
-
-    var months = {
-        1: 'January',
-        2: 'February',
-        3: 'March',
-        4: 'April',
-        5: 'May',
-        6: 'June',
-        7: 'July',
-        8: 'August',
-        9: 'September',
-        10: 'October',
-        11: 'November',
-        12: 'December'
+    function randomValueBetween(min, max) {
+      return Math.random() * (max - min) + min;
     }
 
-    var month = Math.floor(Math.random() * 12) + 1;
-    if(months[month] == 'February' && day > 28) {
-        day = 28;
-    } else {
-        day = day;
+    var date1 = '01-01-1995'
+    var date2 = '01-01-2003'
+
+    date1 = new Date(date1).getTime()
+    date2 = new Date(date2).getTime()
+
+    if(date1 > date2) {
+
+        return new Date(randomValueBetween(date2,date1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric'})  
+
+    } else{
+
+        return new Date(randomValueBetween(date1, date2)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric'})  
+
     }
-
-    // years from 1990 to 2003
-    var year = Math.floor(Math.random() * 13) + 1990;
-
-    return day + ' ' + months[month] + ' ' + year;
-
 }
 
 function randomDepartement() {
